@@ -28,3 +28,28 @@ app.UseExceptionHandler(execptionHandler =>
   });
 });
 ```
+## Response types
+``` csharp
+public static class ApiConventions
+{
+  [ProducesResponseType(StatusCodes.Status200OK)]
+  [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+  public static void Get ()
+  {
+  }
+
+  [ProducesResponseType(StatusCodes.Status200OK)]
+  [ProducesResponseType(StatusCodes.Status404NotFound)]
+  [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+  public static void Get (int id)
+  {
+  }
+
+  [ProducesResponseType(StatusCodes.Status200OK)]
+  [ProducesResponseType(StatusCodes.Status400BadRequest)]
+  [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+  public static void Post (object data)
+  {
+  }
+}
+```
