@@ -50,7 +50,7 @@ namespace ties4560_demo3.Controllers
 
     // GET api/<HeadlinesController>/5
     [HttpGet("{id}")]
-    public Headline Get (int id)
+    public Headline Get (long id)
     {
       using (var db = new NewsServiceContext())
       {

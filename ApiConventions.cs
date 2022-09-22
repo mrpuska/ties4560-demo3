@@ -21,7 +21,7 @@ namespace ties4560_demo3
     [ProducesResponseType(typeof(ErrorMessage), StatusCodes.Status404NotFound)]
     [ProducesResponseType(typeof(ErrorMessage), StatusCodes.Status500InternalServerError)]
     [ApiConventionNameMatch(ApiConventionNameMatchBehavior.Prefix)]
-    public static void Get (int id)
+    public static void Get (long id)
     {
     }
 
@@ -37,7 +37,15 @@ namespace ties4560_demo3
     [ProducesResponseType(typeof(ErrorMessage), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(ErrorMessage), StatusCodes.Status500InternalServerError)]
     [ApiConventionNameMatch(ApiConventionNameMatchBehavior.Prefix)]
-    public static void Put (object data)
+    public static void Put (long id, object data)
+    {
+    }
+
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ErrorMessage), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(ErrorMessage), StatusCodes.Status500InternalServerError)]
+    [ApiConventionNameMatch(ApiConventionNameMatchBehavior.Prefix)]
+    public static void Delete (long id)
     {
     }
   }

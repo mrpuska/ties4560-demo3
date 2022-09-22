@@ -69,6 +69,7 @@ namespace ties4560_demo3
 
           ErrorMessage msg = new ErrorMessage();
 
+          // Catch different types of exceptions
           if (exceptionHandlerPathFeature?.Error is BadHttpRequestException badHttpRequestEx)
           {
             context.Response.StatusCode = StatusCodes.Status400BadRequest;
