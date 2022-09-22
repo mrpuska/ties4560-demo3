@@ -1,13 +1,24 @@
 # ties4560-demo3
 
-# ASP.NET Core 
 ## Creation
  * dotnet new webapi (https://learn.microsoft.com/en-us/dotnet/core/tools/dotnet-new-sdk-templates#webapi)
  * dotnet add package Microsoft.EntityFrameworkCore
  * dotnet add package Microsoft.EntityFrameworkCore.InMemory
- 
-## Inital spec
+
+## Background
+ * Application where machine can post News headlines
+ * Use cases:
+   * Users can view headlines
+   * Users can vie headlines by category
+   * Users can comment on headlines
+   
+### Initial specification
 ![image](https://user-images.githubusercontent.com/94618990/191752611-ef5b6e8f-abef-4275-aebd-0cc10fd0bfee.png)
+
+## API Controllers
+ * HeadlinesController
+ * CommentsController
+ * CategoriesController
 
 ## Exception handling
 Exceptions are caught on a global middleware.
@@ -65,3 +76,7 @@ namespace ties4560_demo3
   public class Startup
 ...
 ```
+## Final API Documentation
+
+Swagger generated documentation. CAn be found at https://localhost/swagger/index.html when running locally.
+![image](https://user-images.githubusercontent.com/94618990/191754304-df828dd9-69e3-41a4-a240-9281f67febe8.png)
