@@ -5,6 +5,10 @@
  * dotnet new webapi (https://learn.microsoft.com/en-us/dotnet/core/tools/dotnet-new-sdk-templates#webapi)
  * dotnet add package Microsoft.EntityFrameworkCore
  * dotnet add package Microsoft.EntityFrameworkCore.InMemory
+ 
+## Inital spec
+![image](https://user-images.githubusercontent.com/94618990/191752611-ef5b6e8f-abef-4275-aebd-0cc10fd0bfee.png)
+
 ## Exception handling
 Exceptions are caught on a global middleware.
 
