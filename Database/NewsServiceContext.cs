@@ -11,10 +11,12 @@ namespace ties4560_demo3.Database
   {
     public DbSet<Headline> Headlines { get; set; }
     public DbSet<Category> Categories { get; set; }
+    public DbSet<Comment> Comments { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
       optionsBuilder.UseInMemoryDatabase(nameof(NewsServiceContext));
+      optionsBuilder.EnableSensitiveDataLogging(true);
     }
 
   }

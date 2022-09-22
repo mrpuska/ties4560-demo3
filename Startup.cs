@@ -16,6 +16,8 @@ using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using ties4560_demo3;
 using ties4560_demo3.Controllers;
+using ties4560_demo3.Database;
+using ties4560_demo3.Exceptions;
 
 [assembly: ApiConventionType(typeof(ApiConventions))]
 namespace ties4560_demo3
@@ -38,6 +40,8 @@ namespace ties4560_demo3
       {
         c.SwaggerDoc("v1", new OpenApiInfo { Title = "ties4560_demo3", Version = "v1" });
       });
+
+      DataInitializer.Initialize();
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -60,16 +64,26 @@ namespace ties4560_demo3
       {
         execptionHandler.Run(async context =>
         {
-          context.Response.StatusCode = StatusCodes.Status500InternalServerError;
           context.Response.ContentType = "application/json";
           var exceptionHandlerPathFeature = context.Features.Get<IExceptionHandlerPathFeature>();
 
           ErrorMessage msg = new ErrorMessage();
 
-          if (exceptionHandlerPathFeature?.Error is Exception ex)
-            msg.Reason = ex.Message;
-          else
-            msg.Reason = "Unexpected internal exception.";
+          if (exceptionHandlerPathFeature?.Error is BadHttpRequestException badHttpRequestEx)
+          {
+            context.Response.StatusCode = StatusCodes.Status400BadRequest;
+            msg.Reason = badHttpRequestEx.Message;
+          }
+          else if (exceptionHandlerPathFeature?.Error is NotFoundException notFoundEx)
+          {
+            context.Response.StatusCode = StatusCodes.Status404NotFound;
+            msg.Reason = notFoundEx.Message;
+          }
+          else if (exceptionHandlerPathFeature?.Error is Exception ex)
+          {
+            context.Response.StatusCode = StatusCodes.Status500InternalServerError;
+            msg.Reason = "Unhandled internal exception.";
+          }
 
           await context.Response.WriteAsync(JsonSerializer.Serialize(msg));
         });

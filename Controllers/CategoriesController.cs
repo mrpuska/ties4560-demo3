@@ -4,7 +4,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.Extensions.Logging;
+using ties4560_demo3.Database;
+using ties4560_demo3.Exceptions;
 
 namespace ties4560_demo3.Controllers
 {
@@ -15,27 +18,32 @@ namespace ties4560_demo3.Controllers
     : ControllerBase
   {
 
-    public CategoriesController ()
+    public CategoriesController (IActionDescriptorCollectionProvider actionDescriptorCollectionProvider) 
+      : base(actionDescriptorCollectionProvider)
     {
+
     }
 
     [HttpGet]
     public IEnumerable<Category> Get ()
     {
-      return this.Categories;
+      using (var db = new NewsServiceContext())
+      {
+        return db.Categories.ToList();
+      }
     }
 
-    #region FIELDS
-
-    private readonly List<Category> Categories = new List<Category>()
+    [HttpGet("{id}")]
+    public Category Get (int id)
     {
-      new Category(0, "News"),
-      new Category(1, "Local"),
-      new Category(2, "Global"),
-      new Category(3, "Sports"),
-      new Category(4, "Entertainment")
-    };
+      using (var db = new NewsServiceContext())
+      {
+        if (db.Categories.Find(id) is Category category)
+          return category;
+        else
+          throw new NotFoundException($"Category with id {id} not found.");
+      }
+    }
 
-    #endregion
   }
 }

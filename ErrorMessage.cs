@@ -1,4 +1,4 @@
-﻿namespace ties4560_demo3.Controllers
+﻿namespace ties4560_demo3
 {
   internal class ErrorMessage
   {
