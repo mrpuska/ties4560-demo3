@@ -17,6 +17,11 @@
 ### Initial specification
 ![image](https://user-images.githubusercontent.com/94618990/191752611-ef5b6e8f-abef-4275-aebd-0cc10fd0bfee.png)
 
+## Tech stack
+ * ASP.NET Core
+ * Entity Framework Core
+ * Swatshbucke ASP.NET Core (For API documentation)
+
 ## API Controllers
  * HeadlinesController
  * CommentsController
