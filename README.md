@@ -9,8 +9,10 @@
  * Application where machine can post News headlines
  * Use cases:
    * Users can view headlines
-   * Users can vie headlines by category
+   * Users can view headlines by category
    * Users can comment on headlines
+   * Users can modify comments
+   * Users can delete comments
    
 ### Initial specification
 ![image](https://user-images.githubusercontent.com/94618990/191752611-ef5b6e8f-abef-4275-aebd-0cc10fd0bfee.png)
