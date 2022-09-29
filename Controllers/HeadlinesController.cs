@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using ties4560_demo3.Database;
 using ties4560_demo3.Exceptions;
@@ -63,6 +65,7 @@ namespace ties4560_demo3.Controllers
 
     // POST api/<HeadlinesController>
     [HttpPost]
+    [Authorize(Policy = "Elevated")]
     public Headline Post ([FromBody] Headline data)
     {
       if (!data.IsValid())

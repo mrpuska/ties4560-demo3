@@ -1,13 +1,18 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Text.Json;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -15,9 +20,11 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using ties4560_demo3;
+using ties4560_demo3.Authentication;
 using ties4560_demo3.Controllers;
 using ties4560_demo3.Database;
 using ties4560_demo3.Exceptions;
+using static ties4560_demo3.User;
 
 [assembly: ApiConventionType(typeof(ApiConventions))]
 namespace ties4560_demo3
@@ -39,6 +46,43 @@ namespace ties4560_demo3
       services.AddSwaggerGen(c =>
       {
         c.SwaggerDoc("v1", new OpenApiInfo { Title = "ties4560_demo3", Version = "v1" });
+        c.AddSecurityDefinition("Basic", new OpenApiSecurityScheme()
+        {
+          In = ParameterLocation.Header,
+          Description = "Enter username and password",
+          Name = "Authorization",
+          Type = SecuritySchemeType.Http,
+          Scheme = "Basic"
+        });
+        c.AddSecurityRequirement(new OpenApiSecurityRequirement
+          {
+            {
+              new OpenApiSecurityScheme
+              {
+                Reference = new OpenApiReference
+                {
+                    Type = ReferenceType.SecurityScheme,
+                    Id = "Basic"
+                }
+              },
+              new string[] {}
+            }
+          });
+      });
+
+      services.AddAuthentication("Basic")
+        .AddScheme<BasicAuthenticationHandlerOptions, BasicAuthenticationHandler>("Basic", opts =>
+        {
+        });
+
+      services.AddAuthorization(options =>
+      {
+        options.AddPolicy("Elevated", policy =>
+          policy.RequireClaim(ClaimTypes.Role, UserRoleType.Admin.ToString(), UserRoleType.PowerUser.ToString()));
+
+        options.FallbackPolicy = new AuthorizationPolicyBuilder()
+          .RequireAuthenticatedUser()
+          .Build();
       });
 
       DataInitializer.Initialize();
@@ -57,6 +101,8 @@ namespace ties4560_demo3
       app.UseHttpsRedirection();
 
       app.UseRouting();
+
+      app.UseAuthentication();
 
       app.UseAuthorization();
 
@@ -80,6 +126,11 @@ namespace ties4560_demo3
             context.Response.StatusCode = StatusCodes.Status404NotFound;
             msg.Reason = notFoundEx.Message;
           }
+          else if (exceptionHandlerPathFeature?.Error is AccessForbiddenException forbiddenEx)
+          {
+            context.Response.StatusCode = StatusCodes.Status403Forbidden;
+            msg.Reason = forbiddenEx.Message;
+          }
           else if (exceptionHandlerPathFeature?.Error is Exception ex)
           {
             context.Response.StatusCode = StatusCodes.Status500InternalServerError;
@@ -94,6 +145,7 @@ namespace ties4560_demo3
       {
         endpoints.MapControllers();
       });
+
     }
   }
 }

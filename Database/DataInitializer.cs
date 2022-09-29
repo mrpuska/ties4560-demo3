@@ -16,6 +16,9 @@ namespace ties4560_demo3.Database
         foreach (var category in Categories)
           db.Categories.Add(category);
 
+        foreach (var user in Users)
+          db.Users.Add(user);
+
         db.SaveChanges();
       }
     }
@@ -29,6 +32,12 @@ namespace ties4560_demo3.Database
       new Category(3, "Global"),
       new Category(4, "Sports"),
       new Category(5, "Entertainment")
+    };
+
+    private static readonly List<User> Users = new List<User>()
+    {
+      new User("TestUser", "userPassword", User.UserRoleType.User),
+      new User("AdminUser", "adminPassword", User.UserRoleType.Admin)
     };
 
     #endregion

@@ -11,6 +11,8 @@ namespace ties4560_demo3
   public static class ApiConventions
   {
     [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ErrorMessage), StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(typeof(ErrorMessage), StatusCodes.Status403Forbidden)]
     [ProducesResponseType(typeof(ErrorMessage), StatusCodes.Status500InternalServerError)]
     [ApiConventionNameMatch(ApiConventionNameMatchBehavior.Prefix)]
     public static void Get ()
@@ -18,6 +20,8 @@ namespace ties4560_demo3
     }
 
     [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ErrorMessage), StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(typeof(ErrorMessage), StatusCodes.Status403Forbidden)]
     [ProducesResponseType(typeof(ErrorMessage), StatusCodes.Status404NotFound)]
     [ProducesResponseType(typeof(ErrorMessage), StatusCodes.Status500InternalServerError)]
     [ApiConventionNameMatch(ApiConventionNameMatchBehavior.Prefix)]
@@ -26,6 +30,8 @@ namespace ties4560_demo3
     }
 
     [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ErrorMessage), StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(typeof(ErrorMessage), StatusCodes.Status403Forbidden)]
     [ProducesResponseType(typeof(ErrorMessage), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(ErrorMessage), StatusCodes.Status500InternalServerError)]
     [ApiConventionNameMatch(ApiConventionNameMatchBehavior.Prefix)]
@@ -34,6 +40,8 @@ namespace ties4560_demo3
     }
 
     [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ErrorMessage), StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(typeof(ErrorMessage), StatusCodes.Status403Forbidden)]
     [ProducesResponseType(typeof(ErrorMessage), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(ErrorMessage), StatusCodes.Status500InternalServerError)]
     [ApiConventionNameMatch(ApiConventionNameMatchBehavior.Prefix)]
@@ -42,6 +50,8 @@ namespace ties4560_demo3
     }
 
     [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ErrorMessage), StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(typeof(ErrorMessage), StatusCodes.Status403Forbidden)]
     [ProducesResponseType(typeof(ErrorMessage), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(ErrorMessage), StatusCodes.Status500InternalServerError)]
     [ApiConventionNameMatch(ApiConventionNameMatchBehavior.Prefix)]
