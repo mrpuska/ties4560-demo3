@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
-using Microsoft.Extensions.Logging;
 using ties4560_demo3.Database;
 using ties4560_demo3.Exceptions;
+using ties4560_demo3.Models;
 
 namespace ties4560_demo3.Controllers
 {

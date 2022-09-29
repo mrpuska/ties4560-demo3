@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ties4560_demo3
+namespace ties4560_demo3.Models
 {
   public class User
   {

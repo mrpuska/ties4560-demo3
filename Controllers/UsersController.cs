@@ -9,7 +9,8 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using ties4560_demo3.Database;
 using ties4560_demo3.Exceptions;
-using static ties4560_demo3.User;
+using ties4560_demo3.Models;
+using static ties4560_demo3.Models.User;
 
 namespace ties4560_demo3.Controllers
 {

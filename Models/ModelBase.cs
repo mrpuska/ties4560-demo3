@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ties4560_demo3
+namespace ties4560_demo3.Models
 {
   public abstract class ModelBase
   {

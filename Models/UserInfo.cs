@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using static ties4560_demo3.User;
+﻿using static ties4560_demo3.Models.User;
 
-namespace ties4560_demo3
+namespace ties4560_demo3.Models
 {
   public class UserInfo
   {

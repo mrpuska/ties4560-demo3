@@ -24,7 +24,7 @@ using ties4560_demo3.Authentication;
 using ties4560_demo3.Controllers;
 using ties4560_demo3.Database;
 using ties4560_demo3.Exceptions;
-using static ties4560_demo3.User;
+using static ties4560_demo3.Models.User;
 
 [assembly: ApiConventionType(typeof(ApiConventions))]
 namespace ties4560_demo3

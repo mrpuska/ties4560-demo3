@@ -1,6 +1,6 @@
 using System;
 
-namespace ties4560_demo3
+namespace ties4560_demo3.Models
 {
   public class Category
   {
