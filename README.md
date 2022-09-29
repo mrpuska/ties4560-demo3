@@ -83,7 +83,56 @@ namespace ties4560_demo3
   public class Startup
 ...
 ```
+## Authentication
+Basic authentication via registered middleware
+```csharp
+services.AddAuthentication("Basic")
+    .AddScheme<BasicAuthenticationHandlerOptions, BasicAuthenticationHandler>("Basic", opts =>{ });
+```
+### Registering User
+```csharp
+[HttpPost]
+[AllowAnonymous] \\ Allow anonymous access to user registering
+public UserInfo Post ([FromBody] User user)
+{
+    ...
+}
+```
+### Authentication flow
+* Extract Authorization header & validate scheme
+* Extract Username and password
+* Validate user
+* Construct Claims (for authorization)
+
+## Authorization
+Role based authorization via Policies. Require authorization for every endpoint (can be overwritten).
+```csharp
+services.AddAuthorization(options =>
+{
+    options.AddPolicy("Elevated", policy =>
+      policy.RequireClaim(ClaimTypes.Role, UserRoleType.Admin.ToString(), UserRoleType.PowerUser.ToString()));
+    
+    options.FallbackPolicy = new AuthorizationPolicyBuilder()
+      .RequireAuthenticatedUser()
+      .Build();
+});
+```
+Method attribute to require certain Policy.
+```csharp
+[HttpPost]
+[Authorize(Policy = "Elevated")]
+public Headline Post ([FromBody] Headline data)
+{
+    ...
+```
+In-code authorization check in user registration.
+```csharp
+// Require elevated access to create elevated users.
+if (user.Role != UserRoleType.User && !User.HasClaim(ClaimTypes.Role, UserRoleType.Admin.ToString()))
+    throw new AccessForbiddenException("Access denied");
+```
+
 ## Final API Documentation
 
-Swagger generated documentation. CAn be found at https://localhost/swagger/index.html when running locally.
-![image](https://user-images.githubusercontent.com/94618990/191754304-df828dd9-69e3-41a4-a240-9281f67febe8.png)
+Swagger generated documentation. Can be found at https://localhost/swagger/index.html when running locally.
+![image](https://user-images.githubusercontent.com/94618990/193025814-6b03de8d-4ca0-4645-9093-31e7bc99721c.png)
