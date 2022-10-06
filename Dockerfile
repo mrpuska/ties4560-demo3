@@ -2,11 +2,9 @@
 FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
 WORKDIR /DockerSource
 
-# Copy csproj and restore as distinct layers
+# Copy, restore and publish
 COPY * .
 RUN dotnet restore
-
-# Copy everything else and build website
 RUN dotnet publish -c release -o /DockerOutput/Website --no-restore
 
 # Final stage
